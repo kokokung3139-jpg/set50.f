@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#060d1a">
+<title>SET50 Forecast · DW Decision</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;800&display=swap');
+
+:root{
+  /* Pure dark high-contrast theme */
+  --bg:#000000;
+  --s1:#0a0a0d;
+  --s2:#141418;
+  --s3:#1f1f24;
+  --border:#2a2a30;
+  --border-bright:#3a3a42;
+
+  /* Bright vivid colors - high contrast on black */
+  --green:#00ff88;
+  --green-dim:#00b366;
+  --red:#ff2d55;
+  --red-dim:#cc1f3f;
+  --yellow:#ffcc00;
+  --yellow-bright:#ffd60a;
+  --blue:#4d9fff;
+  --blue-bright:#5ab4ff;
+  --purple:#bf5af2;
+  --orange:#ff9500;
+  --cyan:#00e0d0;
+  --pink:#ff4d8f;
+
+  /* Text - bright white, high contrast */
+  --text:#ffffff;
+  --text-2:#e8e8ea;
+  --muted:#86868b;
+  --dim:#48484d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'IBM Plex Sans Thai',sans-serif;
+  font-size:15px;line-height:1.55;
+  min-height:100vh;padding-bottom:60px;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ============ HEADER ============ */
+.hdr{
+  background:linear-gradient(180deg,#0a0a0d 0%,#000 100%);
+  border-bottom:1px solid var(--border-bright);
+  padding:14px 16px;position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px);
+  box-shadow:0 4px 20px rgba(0,0,0,0.8);
+}
+.hdr-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue-bright),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:800;
+  box-shadow:0 0 20px rgba(77,159,255,0.4);
+}
+.brand-name{font-size:18px;font-weight:800;letter-spacing:2px;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.brand-sub{font-size:12px;color:var(--muted);letter-spacing:1px;}
+
+.refresh-btn{
+  background:rgba(0,255,136,.12);color:var(--green);
+  border:1px solid rgba(0,255,136,.4);
+  padding:8px 16px;border-radius:18px;
+  font-size:15px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:5px;
+  transition:all 0.2s;font-family:'IBM Plex Sans Thai';
+  box-shadow:0 0 12px rgba(0,255,136,0.2);
+}
+.refresh-btn:active{transform:scale(0.95);}
+.refresh-btn.loading{animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.refresh-icon{display:inline-block;font-size:17px;}
+.refresh-btn.loading .refresh-icon{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.last-update{
+  font-size:13px;color:var(--muted);
+  text-align:center;padding:6px 0 0;
+}
+.last-update span{color:var(--cyan);font-family:'JetBrains Mono',monospace;font-weight:600;}
+
+/* ============ TABS ============ */
+.tabs{
+  display:flex;gap:6px;padding:12px 12px 4px;
+  overflow-x:auto;scrollbar-width:none;
+  background:var(--bg);position:sticky;top:84px;z-index:90;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  padding:9px 18px;border-radius:20px;
+  border:1px solid var(--border-bright);background:#141418;
+  font-size:14px;font-weight:600;color:var(--text-2);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  font-family:'IBM Plex Sans Thai';
+  transition:all 0.2s;
+}
+.tab:active{transform:scale(0.95);}
+.tab.on{
+  background:var(--blue-bright);
+  border-color:var(--blue-bright);color:#000;
+  box-shadow:0 0 16px rgba(77,159,255,.4);
+}
+
+/* ============ FUTURES CARD (DW SET50) ============ */
+.futures-card{
+  background:linear-gradient(135deg,#0d0a18 0%,#0a0a14 100%);
+  border:1px solid var(--purple);border-radius:18px;
+  padding:18px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 28px rgba(191,90,242,.18);
+}
+.futures-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--purple),var(--cyan),var(--green));
+}
+.fc-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(191,90,242,.2);color:var(--purple);
+  padding:5px 12px;border-radius:14px;
+  font-size:13px;font-weight:800;letter-spacing:1px;
+  margin-bottom:10px;font-family:'JetBrains Mono',monospace;
+  border:1px solid rgba(191,90,242,.4);
+}
+.fc-title{font-size:18px;font-weight:800;letter-spacing:2px;margin-bottom:4px;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.fc-sub{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.fc-main{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.fc-price{font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:-1px;}
+.fc-chg{font-size:17px;font-weight:700;}
+
+.basis-box{background:rgba(255,255,255,.04);border:1px solid var(--border-bright);border-radius:12px;padding:14px;margin-bottom:12px;}
+.basis-row{display:flex;justify-content:space-between;align-items:center;}
+.basis-info{flex:1;}
+.basis-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:600;}
+.basis-val{font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.basis-structure{
+  font-size:13px;font-weight:800;padding:5px 12px;border-radius:10px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.5px;
+}
+.struct-CONTANGO{background:rgba(0,255,136,.18);color:var(--green);border:1px solid rgba(0,255,136,.4);}
+.struct-BACKWARDATION{background:rgba(255,149,0,.18);color:var(--orange);border:1px solid rgba(255,149,0,.4);}
+.struct-EQUAL{background:rgba(134,134,139,.15);color:var(--muted);}
+
+.fc-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;}
+.fcs{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.fcs-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px;font-weight:600;}
+.fcs-v{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
+
+.expiry-pill{
+  background:rgba(255,204,0,.12);color:var(--yellow);
+  border:1px solid rgba(255,204,0,.4);
+  padding:5px 12px;border-radius:10px;
+  font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace;
+  display:inline-flex;align-items:center;gap:5px;
+}
+
+/* ============ BREAKOUT PROBABILITY ============ */
+.breakouts-section{
+  background:#0d0d12;border:1px solid var(--border-bright);
+  border-radius:14px;padding:14px;margin-bottom:14px;
+}
+.bo-title{
+  font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:12px;font-weight:800;display:flex;align-items:center;gap:6px;
+}
+.bo-list{display:flex;flex-direction:column;gap:7px;}
+.bo-row{
+  display:grid;grid-template-columns:54px 1fr auto auto;
+  align-items:center;gap:10px;
+  background:#1a1a20;border:1px solid var(--border);border-radius:10px;
+  padding:11px 13px;
+}
+.bo-side{
+  font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace;
+  padding:4px 7px;border-radius:6px;text-align:center;
+  letter-spacing:.5px;
+}
+.bo-icon{font-size:16px;}
+.bo-info .bo-lbl{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--text);}
+.bo-info .bo-dst{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.bo-bar-wrap{width:55px;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.bo-bar{height:100%;border-radius:3px;}
+.bo-prob{
+  font-size:17px;font-weight:800;font-family:'JetBrains Mono',monospace;
+  min-width:42px;text-align:right;
+}
+.prob-high{color:var(--green);text-shadow:0 0 8px rgba(0,255,136,.4);}
+.prob-med{color:var(--yellow);}
+.prob-low{color:var(--red);}
+
+/* ============ RADAR SECTION ============ */
+.radar-section{margin-bottom:18px;}
+.radar-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;padding:0 2px;
+}
+.radar-title{
+  font-size:16px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;display:flex;align-items:center;gap:8px;
+}
+.radar-title .blink{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  animation:blink 1.5s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.radar-count{
+  font-size:14px;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;
+}
+
+.radar-toggle{
+  display:flex;gap:0;background:#141418;border:1px solid var(--border-bright);
+  border-radius:12px;padding:4px;margin-bottom:12px;
+}
+.rt-btn{
+  flex:1;padding:10px 14px;border-radius:9px;
+  font-size:14px;font-weight:700;font-family:'IBM Plex Sans Thai';
+  background:transparent;border:none;cursor:pointer;
+  color:var(--muted);transition:all 0.2s;
+}
+.rt-btn.on{background:rgba(0,255,136,.18);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+.rt-btn.on.down{background:rgba(255,45,85,.18);color:var(--red);border:1px solid rgba(255,45,85,.3);}
+
+.radar-list{display:flex;flex-direction:column;gap:10px;}
+.radar-card{
+  background:#0d0d12;
+  border:1px solid var(--border-bright);border-radius:16px;
+  padding:16px;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .15s, border-color .15s;
+}
+.radar-card:active{transform:scale(0.98);}
+.radar-card.up{border-left:4px solid var(--green);box-shadow:0 0 20px rgba(0,255,136,.1);}
+.radar-card.down{border-left:4px solid var(--red);box-shadow:0 0 20px rgba(255,45,85,.1);}
+
+.radar-card::after{
+  content:'';position:absolute;top:0;right:0;width:100px;height:100%;
+  pointer-events:none;opacity:.08;
+}
+.radar-card.up::after{background:radial-gradient(circle at right,var(--green),transparent 70%);}
+.radar-card.down::after{background:radial-gradient(circle at right,var(--red),transparent 70%);}
+
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.rc-sym-wrap{display:flex;align-items:center;gap:8px;}
+.rc-rank{
+  width:24px;height:24px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;
+  font-family:'JetBrains Mono',monospace;
+}
+.up .rc-rank{background:rgba(0,240,160,.2);color:var(--green);}
+.down .rc-rank{background:rgba(255,61,90,.2);color:var(--red);}
+.rc-sym{font-size:19px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
+.up .rc-sym{color:var(--green);}
+.down .rc-sym{color:var(--red);}
+.rc-sector{font-size:12px;color:var(--muted);}
+
+.rc-prob{
+  text-align:right;
+}
+.rc-prob-val{
+  font-size:28px;font-weight:800;font-family:'JetBrains Mono',monospace;
+  line-height:1;
+}
+.up .rc-prob-val{color:var(--green);}
+.down .rc-prob-val{color:var(--red);}
+.rc-prob-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+.rc-price-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;}
+.rc-price{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.rc-pct{font-size:14px;font-weight:700;margin-left:6px;}
+
+.rc-targets{
+  display:flex;gap:6px;margin-bottom:10px;
+}
+.rc-tg{
+  flex:1;background:rgba(0,0,0,.25);border-radius:8px;padding:7px 9px;
+  text-align:center;
+}
+.rc-tg .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.rc-tg .v{font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.rc-tg.t .v{color:var(--green);}
+.rc-tg.s .v{color:var(--blue);}
+.rc-tg.sl .v{color:var(--red);}
+.rc-tg.upside .v{color:var(--cyan);}
+
+/* Radar 5-axis chart (SVG pentagon) */
+.rc-radar{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(0,0,0,.25);border-radius:10px;padding:8px;
+}
+.rc-radar-svg{flex-shrink:0;width:80px;height:80px;}
+.rc-radar-info{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.rri{font-size:12px;display:flex;justify-content:space-between;}
+.rri-l{color:var(--muted);}
+.rri-v{font-family:'JetBrains Mono',monospace;font-weight:700;}
+
+/* ============ END RADAR ============ */
+
+/* ============ INDEX HERO ============ */
+.hero{
+  background:linear-gradient(135deg,#0a0a12 0%,#141420 100%);
+  border:1px solid var(--border-bright);border-radius:18px;
+  padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.6);
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-bright),var(--purple),var(--green));
+}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.hero-label{font-size:14px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+.hero-name{font-size:24px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:2px;color:var(--text);}
+.hero-conf{
+  padding:5px 14px;border-radius:14px;
+  font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;
+}
+
+.hero-price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.hero-price{font-size:44px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:-1px;}
+.hero-chg{font-size:19px;font-weight:700;}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.hg-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px;}
+.hg-l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;font-weight:600;}
+.hg-v{font-size:17px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
+
+/* Direction pill */
+.dir-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:14px;
+  font-size:16px;font-weight:800;letter-spacing:.5px;
+}
+.dir-STRONG_BUY,.dir-BUY{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.5);box-shadow:0 0 16px rgba(0,255,136,.2);}
+.dir-HOLD{background:rgba(255,204,0,.12);color:var(--yellow);border:1px solid rgba(255,204,0,.4);}
+.dir-SELL,.dir-STRONG_SELL{background:rgba(255,45,85,.15);color:var(--red);border:1px solid rgba(255,45,85,.5);box-shadow:0 0 16px rgba(255,45,85,.2);}
+
+/* Targets */
+.targets{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.tg-cell{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center;border-top-width:3px;}
+.tg-l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;font-weight:600;}
+.tg-v{font-size:19px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.tg-cell.target{border-top-color:var(--green);background:rgba(0,255,136,.06);}
+.tg-cell.target .tg-v{color:var(--green);}
+.tg-cell.support{border-top-color:var(--blue-bright);background:rgba(77,159,255,.06);}
+.tg-cell.support .tg-v{color:var(--blue-bright);}
+.tg-cell.sl{border-top-color:var(--red);background:rgba(255,45,85,.06);}
+.tg-cell.sl .tg-v{color:var(--red);}
+
+/* ============ SUMMARY ============ */
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.sum-card{background:#0d0d12;border:1px solid var(--border-bright);border-radius:14px;padding:14px;text-align:center;position:relative;overflow:hidden;}
+.sum-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.sum-card.buy::before{background:var(--green);box-shadow:0 0 12px rgba(0,255,136,.5);}
+.sum-card.hold::before{background:var(--yellow);}
+.sum-card.sell::before{background:var(--red);box-shadow:0 0 12px rgba(255,45,85,.5);}
+.sum-num{font-size:34px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.sum-card.buy .sum-num{color:var(--green);text-shadow:0 0 16px rgba(0,255,136,.3);}
+.sum-card.hold .sum-num{color:var(--yellow);}
+.sum-card.sell .sum-num{color:var(--red);text-shadow:0 0 16px rgba(255,45,85,.3);}
+.sum-lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;}
+.sum-pct{font-size:13px;font-weight:700;margin-top:3px;color:var(--text-2);}
+
+/* ============ SEARCH/FILTER ============ */
+.search-bar{
+  display:flex;gap:8px;margin-bottom:14px;
+}
+.search-input{
+  flex:1;background:#141418;border:1px solid var(--border-bright);
+  border-radius:12px;padding:12px 16px;color:var(--text);
+  font-family:'IBM Plex Sans Thai';font-size:15px;
+}
+.search-input::placeholder{color:var(--muted);}
+.search-input:focus{outline:none;border-color:var(--blue-bright);box-shadow:0 0 12px rgba(77,159,255,.2);}
+.sort-btn{
+  background:#141418;border:1px solid var(--border-bright);
+  border-radius:12px;padding:0 16px;color:var(--text-2);
+  font-size:14px;font-weight:600;cursor:pointer;font-family:'IBM Plex Sans Thai';
+}
+
+/* ============ STOCK GRID ============ */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media (min-width:768px){
+  .grid{grid-template-columns:repeat(3,1fr);}
+}
+@media (min-width:1024px){
+  .grid{grid-template-columns:repeat(4,1fr);}
+}
+
+.card{
+  background:#0d0d12;border:1px solid var(--border-bright);
+  border-radius:14px;padding:14px;
+  position:relative;overflow:hidden;
+  cursor:pointer;transition:transform .15s, border-color .15s;
+}
+.card:active{transform:scale(0.98);}
+.card:hover{border-color:#4a4a55;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.card.STRONG_BUY::before,.card.BUY::before{background:var(--green);box-shadow:0 0 12px rgba(0,255,136,.4);}
+.card.HOLD::before{background:var(--yellow);}
+.card.SELL::before,.card.STRONG_SELL::before{background:var(--red);box-shadow:0 0 12px rgba(255,45,85,.4);}
+
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.card-sym{font-size:17px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;}
+.card.STRONG_BUY .card-sym,.card.BUY .card-sym{color:var(--green);}
+.card.HOLD .card-sym{color:var(--yellow);}
+.card.SELL .card-sym,.card.STRONG_SELL .card-sym{color:var(--red);}
+
+.card-conf{font-size:12px;font-weight:800;padding:3px 8px;border-radius:7px;font-family:'JetBrains Mono',monospace;}
+.conf-high{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+.conf-med{background:rgba(255,204,0,.12);color:var(--yellow);border:1px solid rgba(255,204,0,.3);}
+.conf-low{background:rgba(255,45,85,.12);color:var(--red);border:1px solid rgba(255,45,85,.3);}
+
+.card-price{font-size:20px;font-weight:800;font-family:'JetBrains Mono',monospace;margin-bottom:0;color:var(--text);}
+.card-pct{font-size:13px;font-weight:700;}
+.up{color:var(--green);} .dn{color:var(--red);} .fl{color:var(--muted);}
+
+.card-mini{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:9px 0;}
+.cm{background:#1a1a20;border-radius:7px;padding:7px 9px;}
+.cm-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:1px;}
+.cm-v{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
+
+.card-tgt{display:flex;justify-content:space-between;font-size:12px;padding-top:8px;border-top:1px solid var(--border);margin-top:2px;}
+.ct-l{color:var(--muted);font-weight:600;}
+.ct-v{font-family:'JetBrains Mono',monospace;font-weight:800;}
+
+/* ============ MODAL ============ */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.92);
+  display:none;align-items:flex-end;justify-content:center;
+  z-index:1000;padding:0;
+  backdrop-filter:blur(12px);
+}
+.modal.on{display:flex;}
+.modal-card{
+  background:#0a0a0d;
+  border-top:1px solid var(--border-bright);
+  border-radius:20px 20px 0 0;
+  width:100%;max-width:600px;max-height:90vh;
+  overflow-y:auto;padding:22px;
+  animation:slideUp 0.25s ease;
+}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+
+.modal-handle{
+  width:48px;height:5px;background:var(--dim);
+  border-radius:3px;margin:0 auto 16px;
+}
+.modal-close{
+  position:absolute;top:14px;right:14px;
+  background:#1a1a20;border:1px solid var(--border-bright);color:var(--text-2);
+  width:36px;height:36px;border-radius:50%;
+  font-size:18px;cursor:pointer;font-weight:700;
+}
+
+.modal-hero{margin-bottom:18px;}
+.mh-sym{font-size:32px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:2px;color:var(--text);}
+.mh-sector{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.mh-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:10px;}
+.mh-price{font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.mh-chg{font-size:17px;font-weight:700;}
+
+/* Factors list */
+.factors{background:#0d0d12;border:1px solid var(--border-bright);border-radius:14px;padding:16px;margin-bottom:14px;}
+.f-title{font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;font-weight:800;}
+.f-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.f-row:last-child{border-bottom:none;}
+.f-icon{font-size:16px;width:22px;flex-shrink:0;}
+.f-name{font-size:14px;flex:1;color:var(--text);}
+.f-score{font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;width:46px;text-align:right;flex-shrink:0;}
+.f-bar{width:56px;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;flex-shrink:0;}
+.f-fill{height:100%;border-radius:3px;}
+
+/* Indicators block */
+.ind-block{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
+.ind{background:#0d0d12;border:1px solid var(--border-bright);border-radius:12px;padding:13px;}
+.ind-l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;font-weight:600;}
+.ind-v{font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--text);}
+.ind-sub{font-size:12px;color:var(--muted);margin-top:3px;font-weight:500;}
+
+/* Fib levels in modal */
+.fib-list{background:#0d0d12;border:1px solid var(--border-bright);border-radius:14px;padding:16px;margin-bottom:14px;}
+.fib-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.fib-row:last-child{border-bottom:none;}
+.fib-lbl{font-family:'JetBrains Mono',monospace;width:64px;font-weight:600;}
+.fib-val{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;}
+.fib-tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;}
+
+/* DW Decision Box */
+.dw-box{
+  background:linear-gradient(135deg,rgba(191,90,242,.1),rgba(77,159,255,.08));
+  border:1px solid rgba(191,90,242,.4);
+  border-radius:14px;padding:16px;margin-bottom:14px;
+  box-shadow:0 0 24px rgba(191,90,242,.12);
+}
+.dw-title{font-size:13px;color:var(--purple);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;font-weight:800;}
+.dw-rec{font-size:17px;font-weight:800;margin-bottom:7px;color:var(--text);}
+.dw-detail{font-size:14px;color:var(--text-2);line-height:1.8;}
+
+/* Empty */
+.empty{text-align:center;color:var(--muted);padding:40px 20px;font-size:16px;}
+
+/* Loading screen */
+.loading-screen{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;gap:16px;
+}
+.loading-screen.hide{display:none;}
+.spinner{
+  width:54px;height:54px;border:3px solid var(--border);
+  border-top-color:var(--blue-bright);border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  box-shadow:0 0 24px rgba(77,159,255,.3);
+}
+.loading-text{font-size:15px;color:var(--text-2);font-family:'JetBrains Mono',monospace;letter-spacing:1px;font-weight:600;}
+
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">LOADING DATA...</div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-row">
+    <div class="brand">
+      <div class="brand-logo">📊</div>
+      <div>
+        <div class="brand-name">SET50.FX</div>
+        <div class="brand-sub">DW Decision Engine</div>
+      </div>
+    </div>
+    <button class="refresh-btn" id="refresh-btn" onclick="refresh()">
+      <span class="refresh-icon">🔄</span>
+      <span>Refresh</span>
+    </button>
+  </div>
+  <div class="last-update">Last Update: <span id="last-update">—</span></div>
+</header>
+
+<!-- TABS -->
+<div class="tabs" id="tabs">
+  <div class="tab on" data-filter="ALL">ทั้งหมด</div>
+  <div class="tab" data-filter="STRONG_BUY">🔥 Strong Buy</div>
+  <div class="tab" data-filter="BUY">🟢 Buy</div>
+  <div class="tab" data-filter="HOLD">🟡 Hold</div>
+  <div class="tab" data-filter="SELL">🔴 Sell</div>
+  <div class="tab" data-filter="HIGH_CONF">⚡ Confidence &gt;70%</div>
+  <div class="tab" data-filter="OVERSOLD">📉 Oversold</div>
+  <div class="tab" data-filter="OVERBOUGHT">📈 Overbought</div>
+</div>
+
+<main class="main">
+
+  <!-- SET50 INDEX HERO -->
+  <div id="hero-container"></div>
+
+  <!-- S50 FUTURES HERO (สำหรับ DW SET50) -->
+  <div id="futures-container"></div>
+
+  <!-- SUMMARY -->
+  <div class="summary" id="summary"></div>
+
+  <!-- RADAR — STRONG MOVERS -->
+  <div class="radar-section" id="radar-section">
+    <div class="radar-header">
+      <div class="radar-title">
+        <span class="blink"></span>
+        🎯 Radar · Strong Movers
+      </div>
+      <div class="radar-count" id="radar-count">—</div>
+    </div>
+    <div class="radar-toggle">
+      <button class="rt-btn on" id="rt-up" onclick="setRadar('up')">⬆️ ขาขึ้นแรง</button>
+      <button class="rt-btn" id="rt-down" onclick="setRadar('down')">⬇️ ขาลงแรง</button>
+    </div>
+    <div class="radar-list" id="radar-list"></div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input class="search-input" type="text" id="search" placeholder="🔍 ค้นหาหุ้น เช่น KBANK, PTT...">
+    <button class="sort-btn" onclick="cycleSort()" id="sort-btn">↕ Conf</button>
+  </div>
+
+  <!-- STOCK GRID -->
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none;">ไม่พบหุ้นในเงื่อนไขนี้</div>
+
+</main>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-handle"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let DATA = null;
+let currentFilter = 'ALL';
+let currentSort = 'conf';
+let currentSearch = '';
+
+const FILTERS = {
+  ALL: s => true,
+  STRONG_BUY: s => s.prediction.direction === 'STRONG_BUY',
+  BUY: s => s.prediction.direction === 'BUY' || s.prediction.direction === 'STRONG_BUY',
+  HOLD: s => s.prediction.direction === 'HOLD',
+  SELL: s => s.prediction.direction === 'SELL' || s.prediction.direction === 'STRONG_SELL',
+  HIGH_CONF: s => s.prediction.confidence >= 70,
+  OVERSOLD: s => s.rsi && s.rsi < 35,
+  OVERBOUGHT: s => s.rsi && s.rsi > 70,
+};
+
+const SORTS = {
+  conf: (a, b) => b.prediction.confidence - a.prediction.confidence,
+  pct: (a, b) => b.pct - a.pct,
+  rsi: (a, b) => (b.rsi||0) - (a.rsi||0),
+  sym: (a, b) => a.sym.localeCompare(b.sym),
+};
+
+// ============================================================
+// FETCH DATA
+// ============================================================
+async function loadData() {
+  try {
+    document.getElementById('loading-text').textContent = 'LOADING FORECAST DATA...';
+    // Add cache busting
+    const response = await fetch(`data/forecast.json?t=${Date.now()}`);
+    if (!response.ok) throw new Error('Cannot fetch data');
+    DATA = await response.json();
+    render();
+    document.getElementById('loading').classList.add('hide');
+  } catch (e) {
+    document.getElementById('loading-text').innerHTML =
+      `<span style="color:var(--red)">❌ Error: ${e.message}</span><br>` +
+      `<span style="color:var(--muted);font-size:13px">รัน workflow ครั้งแรกก่อน หรือเช็คว่า docs/data/forecast.json มีอยู่</span>`;
+  }
+}
+
+async function refresh() {
+  const btn = document.getElementById('refresh-btn');
+  btn.classList.add('loading');
+  try {
+    const response = await fetch(`data/forecast.json?t=${Date.now()}`);
+    if (response.ok) {
+      DATA = await response.json();
+      render();
+    }
+  } catch (e) { console.error(e); }
+  setTimeout(() => btn.classList.remove('loading'), 800);
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  if (!DATA) return;
+  document.getElementById('last-update').textContent = DATA.updated_display || '—';
+
+  renderHero();
+  renderFutures();
+  renderSummary();
+  renderRadar();
+  renderGrid();
+}
+
+// ============================================================
+// FUTURES (DW SET50 อ้างอิงจากที่นี่)
+// ============================================================
+function renderFutures() {
+  const fut = DATA.s50_futures;
+  const container = document.getElementById('futures-container');
+  if (!fut) { container.innerHTML = ''; return; }
+
+  const p = fut.prediction;
+  const pctCls = fut.pct > 0 ? 'up' : fut.pct < 0 ? 'dn' : 'fl';
+  const pctSign = fut.pct > 0 ? '+' : '';
+  const confClass = p.confidence >= 70 ? 'conf-high' : p.confidence >= 50 ? 'conf-med' : 'conf-low';
+  const basis = fut.basis;
+  const basisColor = basis > 0 ? 'var(--green)' : basis < 0 ? 'var(--orange)' : 'var(--muted)';
+  const basisSign = basis > 0 ? '+' : '';
+  const fvDev = fut.fv_deviation;
+  const fvColor = Math.abs(fvDev) < 5 ? 'var(--green)' : Math.abs(fvDev) < 15 ? 'var(--yellow)' : 'var(--red)';
+
+  // Breakout list HTML — ใช้ renderBreakoutsHtml ที่แบ่ง CALL/PUT
+  const breakoutHtml = renderBreakoutsHtml(p.breakouts || [], 'full');
+
+  container.innerHTML = `
+  <div class="futures-card">
+    <div class="fc-badge">⚡ DW SET50 — อ้างอิง Futures</div>
+    <div class="fc-title">S50 FUTURES</div>
+    <div class="fc-sub">${fut.source || 'unknown'} · ใช้เป็น Underlying ของ DW SET50</div>
+
+    <div class="fc-main">
+      <span class="fc-price ${pctCls}">${fut.price}</span>
+      <span class="fc-chg ${pctCls}">${pctSign}${(fut.price - fut.prev).toFixed(2)} (${pctSign}${fut.pct}%)</span>
+      <span class="hero-conf ${confClass}">${p.confidence}%</span>
+      <span class="dir-pill dir-${p.direction}">${p.direction.replace('_',' ')}</span>
+    </div>
+
+    <div class="basis-box">
+      <div class="basis-row">
+        <div class="basis-info">
+          <div class="basis-label">Basis (Futures − Spot)</div>
+          <div class="basis-val" style="color:${basisColor}">${basisSign}${basis !== null ? basis : '—'}${basis !== null ? ' จุด' : ''}</div>
+        </div>
+        <span class="basis-structure struct-${fut.structure}">${fut.structure}</span>
+      </div>
+      ${fut.spot_price ? `<div style="font-size:13px;color:var(--muted);margin-top:6px;">Spot: <span style="color:var(--text);font-family:'JetBrains Mono',monospace;">${fut.spot_price}</span> · ${basis < 0 ? 'Futures ต่ำกว่า Spot ปกติ (มี Dividend Effect)' : 'Futures สูงกว่า Spot (Bullish Forward)'}</div>` : ''}
+    </div>
+
+    <div class="fc-stats">
+      <div class="fcs">
+        <div class="fcs-l">⏳ Days to Expiry</div>
+        <div class="fcs-v" style="color:${fut.days_to_exp < 7 ? 'var(--red)' : fut.days_to_exp < 14 ? 'var(--yellow)' : 'var(--green)'}">${fut.days_to_exp} วัน</div>
+      </div>
+      <div class="fcs">
+        <div class="fcs-l">⚖️ Fair Value</div>
+        <div class="fcs-v">${fut.fair_value || '—'}</div>
+      </div>
+      <div class="fcs">
+        <div class="fcs-l">Δ จาก FV</div>
+        <div class="fcs-v" style="color:${fvColor}">${fvDev !== null ? (fvDev>0?'+':'')+fvDev : '—'}</div>
+      </div>
+      <div class="fcs">
+        <div class="fcs-l">RSI / MACD</div>
+        <div class="fcs-v" style="color:${rsiColor(fut.rsi)}">${fut.rsi || '—'} ${fut.macd_hist > 0 ? '🟢' : '🔴'}</div>
+      </div>
+    </div>
+
+    <div class="targets" style="margin-bottom:12px;">
+      <div class="tg-cell target">
+        <div class="tg-l">🎯 Target</div>
+        <div class="tg-v">${p.target}</div>
+      </div>
+      <div class="tg-cell support">
+        <div class="tg-l">🛡️ Support</div>
+        <div class="tg-v">${p.support}</div>
+      </div>
+      <div class="tg-cell sl">
+        <div class="tg-l">⚠️ Stop</div>
+        <div class="tg-v">${p.stop_loss}</div>
+      </div>
+    </div>
+
+    ${breakoutHtml}
+
+    <div style="margin-top:12px;padding:10px;background:rgba(176,96,255,.06);border-radius:8px;font-size:14px;line-height:1.7;color:var(--text);">
+      💎 <strong style="color:var(--purple)">DW SET50 Decision:</strong>
+      ${p.dw_type === 'CALL' ? '🟢 DW <strong>CALL</strong> — เก็งดัชนีขึ้น' :
+        p.dw_type === 'PUT' ? '🔴 DW <strong>PUT</strong> — เก็งดัชนีลง' :
+        '⏸️ รอสัญญาณชัดเจน'}
+      ${p.dw_grade !== '-' ? ` · Grade <strong style="color:${p.dw_grade==='A'?'var(--green)':p.dw_grade==='B'?'var(--yellow)':'var(--orange)'}">${p.dw_grade}</strong>` : ''}
+      · R:R = <strong style="color:var(--cyan)">1:${p.rr_ratio}</strong>
+    </div>
+  </div>`;
+}
+
+// ============================================================
+// RADAR
+// ============================================================
+let radarMode = 'up';
+
+function setRadar(mode) {
+  radarMode = mode;
+  document.getElementById('rt-up').classList.toggle('on', mode === 'up');
+  document.getElementById('rt-down').classList.toggle('on', mode === 'down');
+  document.getElementById('rt-down').classList.toggle('down', mode === 'down');
+  renderRadar();
+}
+
+function renderRadar() {
+  if (!DATA || !DATA.radar) {
+    document.getElementById('radar-section').style.display = 'none';
+    return;
+  }
+  document.getElementById('radar-section').style.display = 'block';
+
+  const r = DATA.radar;
+  const list = radarMode === 'up' ? r.up : r.down;
+  const totalUp = r.total_up || 0;
+  const totalDown = r.total_down || 0;
+
+  document.getElementById('radar-count').textContent =
+    radarMode === 'up'
+      ? `${totalUp} ตัวขาขึ้นแรง · แสดง Top ${Math.min(list.length, 10)}`
+      : `${totalDown} ตัวขาลงแรง · แสดง Top ${Math.min(list.length, 10)}`;
+
+  const html = document.getElementById('radar-list');
+  if (!list.length) {
+    html.innerHTML = `<div class="empty" style="padding:20px;">ไม่พบหุ้นที่ตรงเงื่อนไข Radar ในตอนนี้</div>`;
+    return;
+  }
+
+  html.innerHTML = list.map((s, i) => radarCard(s, i + 1)).join('');
+}
+
+function radarCard(s, rank) {
+  const isUp = radarMode === 'up';
+  const cls = isUp ? 'up' : 'down';
+  const r = s.radar;
+  const pctCls = s.pct > 0 ? 'up' : s.pct < 0 ? 'dn' : 'fl';
+  const pctSign = s.pct > 0 ? '+' : '';
+  const moveLabel = isUp ? '🎯 เป้า' : '🎯 ลงไป';
+  const movePct = isUp ? `+${s.upside_pct}%` : `-${s.downside_pct}%`;
+  const moveCls = isUp ? 'upside' : 'sl';
+
+  // 5-axis radar SVG (pentagon)
+  const axes = [
+    { label: 'Mom',   value: r.momentum, angle: -90 },
+    { label: 'Vol',   value: r.volume,   angle: -18 },
+    { label: 'Trend', value: r.trend,    angle: 54 },
+    { label: 'Setup', value: r.setup,    angle: 126 },
+    { label: 'Sync',  value: r.sync,     angle: 198 },
+  ];
+  const cx = 40, cy = 40, maxR = 32;
+
+  // Background pentagon (100%)
+  const bgPoints = axes.map(a => {
+    const rad = (a.angle * Math.PI) / 180;
+    return [cx + Math.cos(rad) * maxR, cy + Math.sin(rad) * maxR];
+  }).map(p => p.join(',')).join(' ');
+
+  // Data polygon
+  const dataPoints = axes.map(a => {
+    const rad = (a.angle * Math.PI) / 180;
+    const dist = (a.value / 100) * maxR;
+    return [cx + Math.cos(rad) * dist, cy + Math.sin(rad) * dist];
+  }).map(p => p.join(',')).join(' ');
+
+  const fillColor = isUp ? '#00f0a0' : '#ff3d5a';
+
+  const svgHtml = `<svg class="rc-radar-svg" viewBox="0 0 80 80">
+    <!-- Grid rings -->
+    ${[0.33, 0.66, 1.0].map(scale => {
+      const pts = axes.map(a => {
+        const rad = (a.angle * Math.PI) / 180;
+        const d = scale * maxR;
+        return `${cx + Math.cos(rad) * d},${cy + Math.sin(rad) * d}`;
+      }).join(' ');
+      return `<polygon points="${pts}" fill="none" stroke="#1a2d4a" stroke-width="0.8"/>`;
+    }).join('')}
+    <!-- Background -->
+    <polygon points="${bgPoints}" fill="rgba(255,255,255,0.02)" stroke="#1a2d4a" stroke-width="1"/>
+    <!-- Data -->
+    <polygon points="${dataPoints}" fill="${fillColor}" fill-opacity="0.25" stroke="${fillColor}" stroke-width="1.5"/>
+    <!-- Vertices -->
+    ${axes.map(a => {
+      const rad = (a.angle * Math.PI) / 180;
+      const dist = (a.value / 100) * maxR;
+      return `<circle cx="${cx + Math.cos(rad) * dist}" cy="${cy + Math.sin(rad) * dist}" r="1.8" fill="${fillColor}"/>`;
+    }).join('')}
+  </svg>`;
+
+  return `<div class="radar-card ${cls}" onclick="showDetail('${s.sym}')">
+    <div class="rc-top">
+      <div class="rc-sym-wrap">
+        <div class="rc-rank">#${rank}</div>
+        <div>
+          <div class="rc-sym">${s.sym}</div>
+          <div class="rc-sector">${s.sector}</div>
+        </div>
+      </div>
+      <div class="rc-prob">
+        <div class="rc-prob-val">${s.success_prob}%</div>
+        <div class="rc-prob-lbl">โอกาสสำเร็จ</div>
+      </div>
+    </div>
+
+    <div class="rc-price-row">
+      <div>
+        <span class="rc-price">${s.price}</span>
+        <span class="rc-pct ${pctCls}">${pctSign}${s.pct}%</span>
+      </div>
+      <div style="font-size:13px;color:var(--muted);">
+        Conf <span style="color:${s.confidence>=70?'var(--green)':s.confidence>=55?'var(--yellow)':'var(--orange)'};font-family:'JetBrains Mono',monospace;font-weight:700">${s.confidence}%</span>
+      </div>
+    </div>
+
+    <div class="rc-targets">
+      <div class="rc-tg ${moveCls}">
+        <div class="l">${moveLabel}</div>
+        <div class="v">${s.target}</div>
+      </div>
+      <div class="rc-tg s">
+        <div class="l">${isUp ? '🛡️ รับ' : '🛡️ ดีดกลับ'}</div>
+        <div class="v">${s.support}</div>
+      </div>
+      <div class="rc-tg sl">
+        <div class="l">⚠️ Stop</div>
+        <div class="v">${s.stop_loss}</div>
+      </div>
+      <div class="rc-tg upside">
+        <div class="l">${isUp ? 'Upside' : 'Downside'}</div>
+        <div class="v">${movePct}</div>
+      </div>
+    </div>
+
+    <div class="rc-radar">
+      ${svgHtml}
+      <div class="rc-radar-info">
+        <div class="rri"><span class="rri-l">Momentum</span><span class="rri-v" style="color:${scoreColor(r.momentum)}">${r.momentum}</span></div>
+        <div class="rri"><span class="rri-l">Volume</span><span class="rri-v" style="color:${scoreColor(r.volume)}">${r.volume}</span></div>
+        <div class="rri"><span class="rri-l">Trend</span><span class="rri-v" style="color:${scoreColor(r.trend)}">${r.trend}</span></div>
+        <div class="rri"><span class="rri-l">Setup</span><span class="rri-v" style="color:${scoreColor(r.setup)}">${r.setup}</span></div>
+        <div class="rri"><span class="rri-l">Sync</span><span class="rri-v" style="color:${scoreColor(r.sync)}">${r.sync}</span></div>
+        <div class="rri"><span class="rri-l" style="font-weight:700">Total</span><span class="rri-v" style="color:${scoreColor(r.total)};font-weight:800">${r.total}</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function scoreColor(v) {
+  if (v >= 80) return 'var(--green)';
+  if (v >= 65) return 'var(--cyan)';
+  if (v >= 50) return 'var(--yellow)';
+  if (v >= 35) return 'var(--orange)';
+  return 'var(--red)';
+}
+
+function renderHero() {
+  const idx = DATA.set50_index;
+  if (!idx) {
+    document.getElementById('hero-container').innerHTML =
+      `<div class="hero" style="text-align:center;color:var(--muted);">SET50 Index data unavailable</div>`;
+    return;
+  }
+
+  const p = idx.prediction;
+  const pctClass = idx.pct > 0 ? 'up' : idx.pct < 0 ? 'dn' : 'fl';
+  const pctSign = idx.pct > 0 ? '+' : '';
+  const confClass = p.confidence >= 70 ? 'conf-high' : p.confidence >= 50 ? 'conf-med' : 'conf-low';
+
+  const html = `
+  <div class="hero">
+    ${idx.source === 'synthetic' ? '<div style="background:rgba(255,208,0,.1);color:var(--yellow);padding:6px 10px;border-radius:6px;font-size:13px;margin-bottom:10px;">⚠️ ข้อมูล SET50 คำนวณจากค่าเฉลี่ย 50 หุ้น (Yahoo ticker ไม่พร้อมใช้)</div>' : ''}
+    <div class="hero-top">
+      <div>
+        <div class="hero-label">Thailand · Index</div>
+        <div class="hero-name">SET50</div>
+      </div>
+      <div class="dir-pill dir-${p.direction}">${p.direction.replace('_', ' ')}</div>
+    </div>
+
+    <div class="hero-price-row">
+      <span class="hero-price ${pctClass}">${idx.price.toLocaleString()}</span>
+      <span class="hero-chg ${pctClass}">${pctSign}${(idx.price-idx.prev).toFixed(2)} (${pctSign}${idx.pct}%)</span>
+      <span class="hero-conf ${confClass}">${p.confidence}%</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hg-item">
+        <div class="hg-l">RSI (14)</div>
+        <div class="hg-v" style="color:${rsiColor(idx.rsi)}">${idx.rsi || '—'}</div>
+      </div>
+      <div class="hg-item">
+        <div class="hg-l">MACD Hist</div>
+        <div class="hg-v" style="color:${idx.macd_hist>0?'var(--green)':'var(--red)'}">
+          ${idx.macd_hist>0?'▲':'▼'} ${Math.abs(idx.macd_hist||0).toFixed(2)}
+        </div>
+      </div>
+      <div class="hg-item">
+        <div class="hg-l">MA50</div>
+        <div class="hg-v">${idx.ma50 || '—'}</div>
+      </div>
+      <div class="hg-item">
+        <div class="hg-l">Volume</div>
+        <div class="hg-v">${idx.vol_trend?idx.vol_trend+'x':'—'}</div>
+      </div>
+    </div>
+
+    <div class="targets">
+      <div class="tg-cell target">
+        <div class="tg-l">🎯 Target</div>
+        <div class="tg-v">${p.target}</div>
+      </div>
+      <div class="tg-cell support">
+        <div class="tg-l">🛡️ Support</div>
+        <div class="tg-v">${p.support}</div>
+      </div>
+      <div class="tg-cell sl">
+        <div class="tg-l">⚠️ Stop Loss</div>
+        <div class="tg-v">${p.stop_loss}</div>
+      </div>
+    </div>
+
+    ${renderBreakoutsHtml(p.breakouts, 'compact')}
+  </div>`;
+  document.getElementById('hero-container').innerHTML = html;
+}
+
+function renderBreakoutsHtml(breakouts, mode) {
+  if (!breakouts || !breakouts.length) return '';
+
+  // Split into CALL and PUT
+  const calls = breakouts.filter(b => b.side === 'CALL');
+  const puts  = breakouts.filter(b => b.side === 'PUT');
+
+  const limit = mode === 'compact' ? 3 : 4;
+
+  function renderRow(b) {
+    const probCls = b.probability >= 65 ? 'prob-high' : b.probability >= 45 ? 'prob-med' : 'prob-low';
+    const barColor = b.probability >= 65 ? 'var(--green)' : b.probability >= 45 ? 'var(--yellow)' : 'var(--red)';
+    const sideColor = b.side === 'CALL' ? 'var(--green)' : 'var(--red)';
+    const sideBg = b.side === 'CALL' ? 'rgba(0,255,136,.15)' : 'rgba(255,45,85,.15)';
+    const sideBorder = b.side === 'CALL' ? 'rgba(0,255,136,.4)' : 'rgba(255,45,85,.4)';
+    const typeLabel =
+      b.type === 'breakout_up' ? 'BREAKOUT' :
+      b.type === 'breakdown' ? 'BREAKDOWN' :
+      b.type === 'rejection' ? 'REJECT' : '';
+    const star = b.is_primary ? ' ⭐' : '';
+
+    return `<div class="bo-row">
+      <span class="bo-side" style="background:${sideBg};color:${sideColor};border:1px solid ${sideBorder};">${b.side}</span>
+      <div class="bo-info">
+        <div class="bo-lbl">${b.label}${star}</div>
+        <div class="bo-dst">@ ${b.level} (ห่าง ${b.distance_pct}%) · ${typeLabel}</div>
+      </div>
+      <div class="bo-bar-wrap"><div class="bo-bar" style="width:${b.probability}%;background:${barColor}"></div></div>
+      <span class="bo-prob ${probCls}">${b.probability}%</span>
+    </div>`;
+  }
+
+  const callHtml = calls.slice(0, limit).map(renderRow).join('');
+  const putHtml  = puts.slice(0, limit).map(renderRow).join('');
+
+  return `<div style="margin-top:12px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:14px;">
+    <div class="bo-title" style="margin-bottom:8px;">🎯 โอกาสสำเร็จทั้ง 2 ฝั่ง (⭐ = ทิศหลัก)</div>
+
+    ${calls.length ? `
+    <div style="font-size:11px;color:var(--green);font-weight:800;letter-spacing:1px;margin:8px 0 6px;padding:4px 8px;background:rgba(0,255,136,.06);border-left:3px solid var(--green);border-radius:3px;">
+      🟢 ฝั่งขึ้น (DW CALL) — ทะลุแนวต้าน
+    </div>
+    <div class="bo-list">${callHtml}</div>
+    ` : ''}
+
+    ${puts.length ? `
+    <div style="font-size:11px;color:var(--red);font-weight:800;letter-spacing:1px;margin:12px 0 6px;padding:4px 8px;background:rgba(255,45,85,.06);border-left:3px solid var(--red);border-radius:3px;">
+      🔴 ฝั่งลง (DW PUT) — หลุดแนวรับ / เด้งลง
+    </div>
+    <div class="bo-list">${putHtml}</div>
+    ` : ''}
+  </div>`;
+}
+
+function renderSummary() {
+  const s = DATA.summary;
+  const html = `
+    <div class="sum-card buy">
+      <div class="sum-num">${s.buy}</div>
+      <div class="sum-lbl">BUY</div>
+      <div class="sum-pct">${Math.round(s.buy/s.total*100)}%</div>
+    </div>
+    <div class="sum-card hold">
+      <div class="sum-num">${s.hold}</div>
+      <div class="sum-lbl">HOLD</div>
+      <div class="sum-pct">${Math.round(s.hold/s.total*100)}%</div>
+    </div>
+    <div class="sum-card sell">
+      <div class="sum-num">${s.sell}</div>
+      <div class="sum-lbl">SELL</div>
+      <div class="sum-pct">${Math.round(s.sell/s.total*100)}%</div>
+    </div>
+  `;
+  document.getElementById('summary').innerHTML = html;
+}
+
+function renderGrid() {
+  let stocks = [...DATA.stocks];
+
+  // Filter
+  const f = FILTERS[currentFilter] || FILTERS.ALL;
+  stocks = stocks.filter(f);
+
+  // Search
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    stocks = stocks.filter(s => s.sym.toLowerCase().includes(q));
+  }
+
+  // Sort
+  stocks.sort(SORTS[currentSort] || SORTS.conf);
+
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  if (!stocks.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = stocks.map(stockCard).join('');
+}
+
+function stockCard(s) {
+  const p = s.prediction;
+  const dir = p.direction;
+  const pctCls = s.pct > 0 ? 'up' : s.pct < 0 ? 'dn' : 'fl';
+  const pctSign = s.pct > 0 ? '+' : '';
+  const confCls = p.confidence >= 70 ? 'conf-high' : p.confidence >= 50 ? 'conf-med' : 'conf-low';
+  const rc = rsiColor(s.rsi);
+  const mclr = s.macd_hist > 0 ? 'var(--green)' : 'var(--red)';
+
+  return `<div class="card ${dir}" onclick="showDetail('${s.sym}')">
+    <div class="card-top">
+      <span class="card-sym">${s.sym}</span>
+      <span class="card-conf ${confCls}">${p.confidence}%</span>
+    </div>
+    <div class="card-price ${pctCls}">${s.price}</div>
+    <div class="card-pct ${pctCls}">${pctSign}${s.pct}%</div>
+    <div class="card-mini">
+      <div class="cm">
+        <div class="cm-l">RSI</div>
+        <div class="cm-v" style="color:${rc}">${s.rsi || '—'}</div>
+      </div>
+      <div class="cm">
+        <div class="cm-l">MACD</div>
+        <div class="cm-v" style="color:${mclr}">${s.macd_hist > 0 ? '▲' : '▼'}</div>
+      </div>
+    </div>
+    <div class="card-tgt">
+      <div><span class="ct-l">🎯</span> <span class="ct-v" style="color:var(--green)">${p.target}</span></div>
+      <div><span class="ct-l">🛡️</span> <span class="ct-v" style="color:var(--blue)">${p.support}</span></div>
+    </div>
+  </div>`;
+}
+
+function rsiColor(r) {
+  if (r == null) return 'var(--muted)';
+  if (r >= 70) return 'var(--orange)';
+  if (r >= 55) return 'var(--green)';
+  if (r >= 45) return 'var(--muted)';
+  if (r >= 30) return 'var(--red)';
+  return 'var(--blue)';
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function showDetail(sym) {
+  const s = DATA.stocks.find(x => x.sym === sym);
+  if (!s) return;
+
+  const p = s.prediction;
+  const pctCls = s.pct > 0 ? 'up' : 'dn';
+  const pctSign = s.pct > 0 ? '+' : '';
+
+  const factorsHtml = p.factors.map(f => {
+    const cls = f.score > 0 ? 'var(--green)' : 'var(--red)';
+    const icon = f.score > 5 ? '🟢' : f.score > 0 ? '🟢' : f.score > -5 ? '🟡' : '🔴';
+    const fillW = Math.min(100, Math.abs(f.score) * 8);
+    return `<div class="f-row">
+      <span class="f-icon">${icon}</span>
+      <span class="f-name">${f.name}</span>
+      <div class="f-bar"><div class="f-fill" style="width:${fillW}%;background:${cls}"></div></div>
+      <span class="f-score" style="color:${cls}">${f.score>0?'+':''}${f.score}</span>
+    </div>`;
+  }).join('');
+
+  // DW recommendation
+  let dwRec = '';
+  let dwDetail = '';
+  let dwBadge = '';
+  const grade = p.dw_grade || '-';
+  const gradeColor = grade==='A'?'var(--green)':grade==='B'?'var(--yellow)':grade==='C'?'var(--orange)':'var(--muted)';
+
+  if (p.dw_type === 'CALL') {
+    dwRec = '🟢 DW CALL — เก็งราคาขึ้น';
+    dwDetail = `เป้าราคาหุ้น ${p.target} (กำไร ${(((p.target-s.price)/s.price)*100).toFixed(1)}%)<br>` +
+               `Stop Loss ${p.stop_loss} · R:R = <strong style="color:var(--cyan)">1:${p.rr_ratio}</strong><br>` +
+               `Volatility: ${s.vol_class || '—'} (HV ${s.hist_vol || '—'}%)`;
+    dwBadge = `Grade ${grade}`;
+  } else if (p.dw_type === 'PUT') {
+    dwRec = '🔴 DW PUT — เก็งราคาลง';
+    dwDetail = `เป้าราคาหุ้น ${p.target} (กำไร ${(((s.price-p.target)/s.price)*100).toFixed(1)}%)<br>` +
+               `Stop Loss ${p.stop_loss} · R:R = <strong style="color:var(--cyan)">1:${p.rr_ratio}</strong><br>` +
+               `Volatility: ${s.vol_class || '—'} (HV ${s.hist_vol || '—'}%)`;
+    dwBadge = `Grade ${grade}`;
+  } else {
+    dwRec = '⏸️ รอสัญญาณชัดเจน';
+    dwDetail = `อยู่ในช่วง Sideways · Confidence ${p.confidence}%<br>รอราคาเคลื่อนเหนือ ${p.target} หรือ ต่ำกว่า ${p.support}`;
+    dwBadge = 'Wait';
+  }
+
+  const fibs = s.fibs;
+  const fibHtml = ['EXT_1618','0%','23.6%','38.2%','50.0%','61.8%','78.6%','100%'].map(k => {
+    const v = fibs[k];
+    const isAbove = s.price >= v;
+    return `<div class="fib-row">
+      <span class="fib-lbl" style="color:var(--muted)">${k.replace('_',' ')}</span>
+      <span class="fib-val" style="color:${isAbove?'var(--green)':'var(--red)'}">${v}</span>
+      <span class="fib-tag" style="background:${isAbove?'rgba(0,240,160,.15)':'rgba(255,61,90,.1)'};color:${isAbove?'var(--green)':'var(--red)'}">${isAbove?'PASS':'RESIST'}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-hero">
+      <div class="mh-sym">${s.sym}</div>
+      <div class="mh-sector">${s.sector}</div>
+      <div class="mh-row">
+        <span class="mh-price">${s.price}</span>
+        <span class="mh-chg ${pctCls}">${pctSign}${s.pct}%</span>
+        <span class="dir-pill dir-${p.direction}">${p.direction.replace('_',' ')} · ${p.confidence}%</span>
+      </div>
+    </div>
+
+    <div class="dw-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div class="dw-title" style="margin-bottom:0;">💎 DW Decision</div>
+        <span style="background:${gradeColor};color:#060d1a;padding:3px 10px;border-radius:8px;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;">${dwBadge}</span>
+      </div>
+      <div class="dw-rec">${dwRec}</div>
+      <div class="dw-detail">${dwDetail}</div>
+    </div>
+
+    <div class="targets" style="margin-bottom:14px;">
+      <div class="tg-cell target">
+        <div class="tg-l">🎯 Target</div>
+        <div class="tg-v">${p.target}</div>
+      </div>
+      <div class="tg-cell support">
+        <div class="tg-l">🛡️ Support</div>
+        <div class="tg-v">${p.support}</div>
+      </div>
+      <div class="tg-cell sl">
+        <div class="tg-l">⚠️ Stop</div>
+        <div class="tg-v">${p.stop_loss}</div>
+      </div>
+    </div>
+
+    <div class="ind-block">
+      <div class="ind">
+        <div class="ind-l">RSI (14)</div>
+        <div class="ind-v" style="color:${rsiColor(s.rsi)}">${s.rsi || '—'}</div>
+        <div class="ind-sub">${rsiLabel(s.rsi)}</div>
+      </div>
+      <div class="ind">
+        <div class="ind-l">MACD</div>
+        <div class="ind-v" style="color:${s.macd_hist>0?'var(--green)':'var(--red)'}">${s.macd_hist>0?'▲':'▼'} ${(s.macd_hist||0).toFixed(3)}</div>
+        <div class="ind-sub">Histogram</div>
+      </div>
+      <div class="ind">
+        <div class="ind-l">MA 50</div>
+        <div class="ind-v">${s.ma50 || '—'}</div>
+        <div class="ind-sub">${s.ma50 && s.price > s.ma50 ? 'เหนือเส้น ✓' : 'ใต้เส้น'}</div>
+      </div>
+      <div class="ind">
+        <div class="ind-l">Volume</div>
+        <div class="ind-v" style="color:${s.vol_trend>1?'var(--green)':'var(--red)'}">${s.vol_trend?s.vol_trend+'x':'—'}</div>
+        <div class="ind-sub">vs 10D avg</div>
+      </div>
+      <div class="ind">
+        <div class="ind-l">Volatility (HV)</div>
+        <div class="ind-v" style="color:${volColor(s.vol_class)}">${s.hist_vol?s.hist_vol+'%':'—'}</div>
+        <div class="ind-sub">${s.vol_class || 'UNKNOWN'} · DW ${volDwLabel(s.vol_class)}</div>
+      </div>
+      <div class="ind">
+        <div class="ind-l">Risk : Reward</div>
+        <div class="ind-v" style="color:${p.rr_ratio>=2?'var(--green)':p.rr_ratio>=1?'var(--yellow)':'var(--red)'}">1 : ${p.rr_ratio || '—'}</div>
+        <div class="ind-sub">${p.rr_ratio>=2?'ดีมาก':p.rr_ratio>=1?'พอใช้':'เสี่ยง'}</div>
+      </div>
+    </div>
+
+    <div class="factors">
+      <div class="f-title">🔬 ปัจจัยวิเคราะห์ (${p.factors.length} ปัจจัย)</div>
+      ${factorsHtml}
+    </div>
+
+    <div class="fib-list">
+      <div class="f-title">📐 Fibonacci Retracement (30D)</div>
+      ${fibHtml}
+    </div>
+
+    ${renderBreakoutsHtml(p.breakouts, 'full')}
+
+    <div style="font-size:13px;color:var(--muted);text-align:center;padding:12px 0;line-height:1.6;">
+      ⚠️ Confidence Score = ${p.confidence}/100<br>
+      ข้อมูลใช้เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน
+    </div>
+  `;
+
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+function rsiLabel(r) {
+  if (r == null) return '—';
+  if (r >= 70) return 'Overbought';
+  if (r >= 55) return 'Bullish';
+  if (r >= 45) return 'Neutral';
+  if (r >= 30) return 'Bearish';
+  return 'Oversold';
+}
+
+function volColor(c) {
+  return c==='HIGH'?'var(--red)':c==='MEDIUM'?'var(--green)':c==='LOW'?'var(--blue)':'var(--muted)';
+}
+
+function volDwLabel(c) {
+  return c==='HIGH'?'เคลื่อนไหวเร็ว · เสี่ยง':c==='MEDIUM'?'เหมาะสม ✓':c==='LOW'?'เคลื่อนไหวช้า':'—';
+}
+
+function dirLabel(d) {
+  return {
+    'STRONG_BUY': 'แรงซื้อแข็งแกร่งมาก',
+    'BUY': 'แนะนำซื้อ',
+    'HOLD': 'รอดู',
+    'SELL': 'ระวังการขาย',
+    'STRONG_SELL': 'ขายทันที'
+  }[d] || d;
+}
+
+// ============================================================
+// EVENTS
+// ============================================================
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    currentFilter = t.dataset.filter;
+    renderGrid();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  currentSearch = e.target.value;
+  renderGrid();
+});
+
+function cycleSort() {
+  const order = ['conf','pct','rsi','sym'];
+  const labels = {conf:'↕ Conf', pct:'↕ %', rsi:'↕ RSI', sym:'↕ Name'};
+  const idx = order.indexOf(currentSort);
+  currentSort = order[(idx+1)%order.length];
+  document.getElementById('sort-btn').textContent = labels[currentSort];
+  renderGrid();
+}
+
+// Auto-refresh every 5 minutes during market hours
+setInterval(() => {
+  const h = new Date().getUTCHours() + 7; // BKK
+  const day = new Date().getDay();
+  if (day >= 1 && day <= 5 && h >= 10 && h <= 17) {
+    refresh();
+  }
+}, 5 * 60 * 1000);
+
+// Initialize
+loadData();
+</script>
+</body>
+</html>
