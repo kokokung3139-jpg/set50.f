@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-22T22:26:09.070966+07:00",
-  "updated_display": "22/10/2026 22:26:09",
+  "updated_at": "2026-10-23T14:59:58.268458+07:00",
+  "updated_display": "23/10/2026 14:59:58",
   "set50_index": {
     "sym": "SET50",
     "sector": "INDEX",
@@ -11,7 +11,7 @@
     "rsi": 51.7,
     "macd": null,
     "macd_sig": null,
-    "macd_hist": 0.059,
+    "macd_hist": 0.06,
     "ma50": null,
     "ma200": null,
     "bb_upper": null,
@@ -178,13 +178,13 @@
     "sym": "S50_FUTURES",
     "sector": "FUTURES",
     "source": "synthetic_from_spot",
-    "price": 999.21,
+    "price": 999.26,
     "prev": 994.8,
     "pct": 0.46,
     "rsi": 51.7,
     "macd": null,
     "macd_sig": null,
-    "macd_hist": 0.059,
+    "macd_hist": 0.06,
     "ma50": null,
     "ma200": null,
     "bb_upper": null,
@@ -216,9 +216,9 @@
       "target": 1003.71,
       "support": 994.79,
       "stop_loss": 985.88,
-      "risk": 13.33,
-      "reward": 4.5,
-      "rr_ratio": 0.34,
+      "risk": 13.38,
+      "reward": 4.45,
+      "rr_ratio": 0.33,
       "dw_type": "WAIT",
       "dw_emoji": "⏸️",
       "dw_grade": "-",
@@ -248,7 +248,7 @@
         {
           "level_name": "Fib 38.2%",
           "level": 1003.71,
-          "distance": 4.5,
+          "distance": 4.45,
           "distance_pct": 0.45,
           "probability": 52,
           "type": "breakout_up",
@@ -259,7 +259,7 @@
         {
           "level_name": "Fib 38.2%",
           "level": 1003.71,
-          "distance": 4.5,
+          "distance": 4.45,
           "distance_pct": 0.45,
           "probability": 50,
           "type": "rejection",
@@ -270,8 +270,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 15.54,
-          "distance_pct": 1.56,
+          "distance": 15.49,
+          "distance_pct": 1.55,
           "probability": 48,
           "type": "rejection",
           "label": "🚫 ชน Fib 23.6% เด้งลง",
@@ -281,8 +281,8 @@
         {
           "level_name": "Fib 50.0%",
           "level": 994.79,
-          "distance": 4.42,
-          "distance_pct": 0.44,
+          "distance": 4.47,
+          "distance_pct": 0.45,
           "probability": 44,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 50.0%",
@@ -292,8 +292,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 15.54,
-          "distance_pct": 1.56,
+          "distance": 15.49,
+          "distance_pct": 1.55,
           "probability": 40,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib 23.6%",
@@ -303,8 +303,8 @@
         {
           "level_name": "Fib 61.8%",
           "level": 985.88,
-          "distance": 13.33,
-          "distance_pct": 1.33,
+          "distance": 13.38,
+          "distance_pct": 1.34,
           "probability": 30,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 61.8%",
@@ -314,7 +314,7 @@
         {
           "level_name": "Fib 0% (High)",
           "level": 1032.59,
-          "distance": 33.38,
+          "distance": 33.33,
           "distance_pct": 3.34,
           "probability": 20,
           "type": "breakout_up",
@@ -325,7 +325,7 @@
         {
           "level_name": "Fib 78.6%",
           "level": 973.18,
-          "distance": 26.03,
+          "distance": 26.08,
           "distance_pct": 2.61,
           "probability": 20,
           "type": "breakdown",
@@ -336,8 +336,8 @@
         {
           "level_name": "Fib EXT 123.6%",
           "level": 1050.43,
-          "distance": 51.22,
-          "distance_pct": 5.13,
+          "distance": 51.17,
+          "distance_pct": 5.12,
           "probability": 5,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib EXT 123.6%",
@@ -347,11 +347,11 @@
       ]
     },
     "spot_price": 999.42,
-    "basis": -0.21,
+    "basis": -0.16,
     "basis_pct": -0.02,
     "structure": "BACKWARDATION",
-    "days_to_exp": 5,
-    "fair_value": 999.21,
+    "days_to_exp": 4,
+    "fair_value": 999.26,
     "fv_deviation": 0
   },
   "stocks": [
@@ -370,7 +370,7 @@
       "bb_upper": 351.34,
       "bb_middle": 339.75,
       "bb_lower": 328.16,
-      "vol_trend": 0.69,
+      "vol_trend": 0.6,
       "atr": 5.45,
       "hist_vol": 12.0,
       "vol_class": "LOW",
@@ -423,7 +423,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.69x (weak conviction)",
+            "name": "Volume 0.6x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -555,7 +555,7 @@
       "bb_upper": 63.05,
       "bb_middle": 59.54,
       "bb_lower": 56.02,
-      "vol_trend": 1.6,
+      "vol_trend": 1.52,
       "atr": 1.54,
       "hist_vol": 25.3,
       "vol_class": "LOW",
@@ -608,7 +608,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.6x + ขึ้น (Buying pressure)",
+            "name": "Volume 1.52x + ขึ้น (Buying pressure)",
             "score": 8,
             "weight": 10
           },
@@ -717,52 +717,52 @@
     {
       "sym": "BANPU",
       "sector": "Energy",
-      "price": 14.5,
-      "prev": 14.6,
+      "price": 14.6,
+      "prev": 14.7,
       "pct": -0.68,
-      "rsi": 78.2,
-      "macd": 0.821,
-      "macd_sig": 0.575,
-      "macd_hist": 0.246,
-      "ma50": 11.95,
+      "rsi": 80.8,
+      "macd": 0.807,
+      "macd_sig": 0.513,
+      "macd_hist": 0.294,
+      "ma50": 11.9,
       "ma200": null,
-      "bb_upper": 15.51,
-      "bb_middle": 12.84,
-      "bb_lower": 10.17,
+      "bb_upper": 15.29,
+      "bb_middle": 12.71,
+      "bb_lower": 10.12,
       "vol_trend": 1.19,
-      "atr": 0.4,
-      "hist_vol": 82.8,
+      "atr": 0.42,
+      "hist_vol": 82.5,
       "vol_class": "HIGH",
       "fibs": {
         "0%": 15.3,
-        "23.6%": 14.29,
-        "38.2%": 13.66,
-        "50.0%": 13.15,
-        "61.8%": 12.64,
-        "78.6%": 11.92,
-        "100%": 11.0,
-        "EXT_1236": 16.31,
-        "EXT_1618": 17.96
+        "23.6%": 14.26,
+        "38.2%": 13.62,
+        "50.0%": 13.1,
+        "61.8%": 12.58,
+        "78.6%": 11.84,
+        "100%": 10.9,
+        "EXT_1236": 16.34,
+        "EXT_1618": 18.02
       },
       "fib_pos": "ABOVE_236",
       "high_30d": 15.3,
-      "low_30d": 11.0,
+      "low_30d": 10.9,
       "prediction": {
         "direction": "BUY",
         "confidence": 69,
         "score": 19,
         "target": 15.3,
-        "support": 14.29,
-        "stop_loss": 13.66,
-        "risk": 0.84,
-        "reward": 0.8,
-        "rr_ratio": 0.95,
+        "support": 14.26,
+        "stop_loss": 13.62,
+        "risk": 0.98,
+        "reward": 0.7,
+        "rr_ratio": 0.71,
         "dw_type": "CALL",
         "dw_emoji": "🟢",
         "dw_grade": "B",
         "factors": [
           {
-            "name": "RSI 78.2 Extreme Overbought",
+            "name": "RSI 80.8 Extreme Overbought",
             "score": -12,
             "weight": 15
           },
@@ -806,9 +806,9 @@
           {
             "level_name": "Fib 0% (High)",
             "level": 15.3,
-            "distance": 0.8,
-            "distance_pct": 5.52,
-            "probability": 39,
+            "distance": 0.7,
+            "distance_pct": 4.79,
+            "probability": 42,
             "type": "breakout_up",
             "label": "⬆️ ทะลุ Fib 0% (High)",
             "side": "CALL",
@@ -816,10 +816,10 @@
           },
           {
             "level_name": "Fib 23.6%",
-            "level": 14.29,
-            "distance": 0.21,
-            "distance_pct": 1.45,
-            "probability": 19,
+            "level": 14.26,
+            "distance": 0.34,
+            "distance_pct": 2.33,
+            "probability": 15,
             "type": "breakdown",
             "label": "⬇️ หลุด Fib 23.6%",
             "side": "PUT",
@@ -827,9 +827,9 @@
           },
           {
             "level_name": "Fib EXT 123.6%",
-            "level": 16.31,
-            "distance": 1.81,
-            "distance_pct": 12.48,
+            "level": 16.34,
+            "distance": 1.74,
+            "distance_pct": 11.92,
             "probability": 5,
             "type": "breakout_up",
             "label": "⬆️ ทะลุ Fib EXT 123.6%",
@@ -838,9 +838,9 @@
           },
           {
             "level_name": "Fib 38.2%",
-            "level": 13.66,
-            "distance": 0.84,
-            "distance_pct": 5.79,
+            "level": 13.62,
+            "distance": 0.98,
+            "distance_pct": 6.71,
             "probability": 5,
             "type": "breakdown",
             "label": "⬇️ หลุด Fib 38.2%",
@@ -849,9 +849,9 @@
           },
           {
             "level_name": "Fib 50.0%",
-            "level": 13.15,
-            "distance": 1.35,
-            "distance_pct": 9.31,
+            "level": 13.1,
+            "distance": 1.5,
+            "distance_pct": 10.27,
             "probability": 5,
             "type": "breakdown",
             "label": "⬇️ หลุด Fib 50.0%",
@@ -861,7 +861,7 @@
         ]
       },
       "radar": {
-        "momentum": 80,
+        "momentum": 82,
         "volume": 55,
         "trend": 50,
         "setup": 80,
@@ -886,7 +886,7 @@
       "bb_upper": 194.11,
       "bb_middle": 185.82,
       "bb_lower": 177.54,
-      "vol_trend": 1.11,
+      "vol_trend": 1.07,
       "atr": 2.76,
       "hist_vol": 15.4,
       "vol_class": "LOW",
@@ -939,7 +939,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.11x + ขึ้น",
+            "name": "Volume 1.07x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -1065,7 +1065,7 @@
       "bb_upper": 20.24,
       "bb_middle": 19.33,
       "bb_lower": 18.42,
-      "vol_trend": 1.01,
+      "vol_trend": 0.98,
       "atr": 0.39,
       "hist_vol": 21.2,
       "vol_class": "LOW",
@@ -1085,8 +1085,8 @@
       "low_30d": 18.7,
       "prediction": {
         "direction": "HOLD",
-        "confidence": 48,
-        "score": -2,
+        "confidence": 52,
+        "score": 2,
         "target": 19.5,
         "support": 19.31,
         "stop_loss": 19.04,
@@ -1118,8 +1118,8 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.01x + ลง",
-            "score": -4,
+            "name": "Volume 0.98x (weak conviction)",
+            "score": 0,
             "weight": 10
           },
           {
@@ -1237,11 +1237,11 @@
       },
       "radar": {
         "momentum": 50,
-        "volume": 55,
+        "volume": 40,
         "trend": 50,
         "setup": 50,
         "sync": 50,
-        "total": 51,
+        "total": 48,
         "direction": "NEUTRAL"
       },
       "success_prob": 50
@@ -1261,7 +1261,7 @@
       "bb_upper": 200.07,
       "bb_middle": 192.22,
       "bb_lower": 184.38,
-      "vol_trend": 1.7,
+      "vol_trend": 1.67,
       "atr": 3.42,
       "hist_vol": 16.8,
       "vol_class": "LOW",
@@ -1314,7 +1314,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.7x + ขึ้น (Buying pressure)",
+            "name": "Volume 1.67x + ขึ้น (Buying pressure)",
             "score": 8,
             "weight": 10
           },
@@ -1625,7 +1625,7 @@
       "bb_upper": 10.34,
       "bb_middle": 9.42,
       "bb_lower": 8.49,
-      "vol_trend": 0.49,
+      "vol_trend": 0.47,
       "atr": 0.46,
       "hist_vol": 58.2,
       "vol_class": "HIGH",
@@ -1678,7 +1678,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.49x (weak conviction)",
+            "name": "Volume 0.47x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -1967,7 +1967,7 @@
       "bb_upper": 63.9,
       "bb_middle": 62.42,
       "bb_lower": 60.95,
-      "vol_trend": 0.73,
+      "vol_trend": 0.72,
       "atr": 1.09,
       "hist_vol": 17.6,
       "vol_class": "LOW",
@@ -2020,7 +2020,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.73x (weak conviction)",
+            "name": "Volume 0.72x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -2152,7 +2152,7 @@
       "bb_upper": 44.69,
       "bb_middle": 43.31,
       "bb_lower": 41.94,
-      "vol_trend": 0.96,
+      "vol_trend": 0.89,
       "atr": 0.79,
       "hist_vol": 16.2,
       "vol_class": "LOW",
@@ -2205,7 +2205,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.96x (weak conviction)",
+            "name": "Volume 0.89x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -2326,7 +2326,7 @@
       "bb_upper": 32.42,
       "bb_middle": 30.61,
       "bb_lower": 28.8,
-      "vol_trend": 1.58,
+      "vol_trend": 1.7,
       "atr": 1.05,
       "hist_vol": 25.9,
       "vol_class": "LOW",
@@ -2379,7 +2379,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.58x + ขึ้น (Buying pressure)",
+            "name": "Volume 1.7x + ขึ้น (Buying pressure)",
             "score": 8,
             "weight": 10
           },
@@ -2679,7 +2679,7 @@
       "bb_upper": 277.76,
       "bb_middle": 258.05,
       "bb_lower": 238.34,
-      "vol_trend": 0.92,
+      "vol_trend": 0.91,
       "atr": 8.84,
       "hist_vol": 30.0,
       "vol_class": "MEDIUM",
@@ -2732,7 +2732,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.92x (weak conviction)",
+            "name": "Volume 0.91x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -3026,7 +3026,7 @@
       "bb_upper": 62.79,
       "bb_middle": 60.6,
       "bb_lower": 58.41,
-      "vol_trend": 0.68,
+      "vol_trend": 0.66,
       "atr": 1.08,
       "hist_vol": 17.7,
       "vol_class": "LOW",
@@ -3079,7 +3079,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.68x (weak conviction)",
+            "name": "Volume 0.66x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -3379,7 +3379,7 @@
       "bb_upper": 254.47,
       "bb_middle": 238.3,
       "bb_lower": 222.13,
-      "vol_trend": 1.34,
+      "vol_trend": 1.25,
       "atr": 5.04,
       "hist_vol": 25.7,
       "vol_class": "LOW",
@@ -3432,7 +3432,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.34x + ขึ้น",
+            "name": "Volume 1.25x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -3553,7 +3553,7 @@
       "bb_upper": 117.58,
       "bb_middle": 113.6,
       "bb_lower": 109.62,
-      "vol_trend": 1.24,
+      "vol_trend": 1.17,
       "atr": 2.65,
       "hist_vol": 23.5,
       "vol_class": "LOW",
@@ -3606,7 +3606,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.24x + ขึ้น",
+            "name": "Volume 1.17x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -3643,7 +3643,7 @@
             "level": 121.48,
             "distance": 4.48,
             "distance_pct": 3.83,
-            "probability": 92,
+            "probability": 87,
             "type": "breakout_up",
             "label": "⬆️ ทะลุ Fib EXT 123.6%",
             "side": "CALL",
@@ -3654,7 +3654,7 @@
             "level": 125.49,
             "distance": 8.49,
             "distance_pct": 7.26,
-            "probability": 70,
+            "probability": 65,
             "type": "breakout_up",
             "label": "⬆️ ทะลุ Fib EXT 161.8%",
             "side": "CALL",
@@ -3697,14 +3697,14 @@
       },
       "radar": {
         "momentum": 75,
-        "volume": 70,
+        "volume": 55,
         "trend": 50,
         "setup": 58,
         "sync": 85,
-        "total": 67,
+        "total": 64,
         "direction": "UP"
       },
-      "success_prob": 80
+      "success_prob": 78
     },
     {
       "sym": "KTB",
@@ -3721,7 +3721,7 @@
       "bb_upper": 45.1,
       "bb_middle": 42.79,
       "bb_lower": 40.47,
-      "vol_trend": 1.11,
+      "vol_trend": 0.94,
       "atr": 0.83,
       "hist_vol": 26.3,
       "vol_class": "LOW",
@@ -3741,8 +3741,8 @@
       "low_30d": 40.75,
       "prediction": {
         "direction": "HOLD",
-        "confidence": 52,
-        "score": 2,
+        "confidence": 56,
+        "score": 6,
         "target": 43.01,
         "support": 42.48,
         "stop_loss": 41.72,
@@ -3774,8 +3774,8 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.11x + ลง",
-            "score": -4,
+            "name": "Volume 0.94x (weak conviction)",
+            "score": 0,
             "weight": 10
           },
           {
@@ -3893,11 +3893,11 @@
       },
       "radar": {
         "momentum": 50,
-        "volume": 55,
+        "volume": 40,
         "trend": 50,
         "setup": 50,
         "sync": 50,
-        "total": 51,
+        "total": 48,
         "direction": "NEUTRAL"
       },
       "success_prob": 51
@@ -4287,7 +4287,7 @@
       "bb_upper": 30.46,
       "bb_middle": 28.57,
       "bb_lower": 26.69,
-      "vol_trend": 0.63,
+      "vol_trend": 0.65,
       "atr": 0.77,
       "hist_vol": 23.7,
       "vol_class": "LOW",
@@ -4340,7 +4340,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.63x (weak conviction)",
+            "name": "Volume 0.65x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -4461,7 +4461,7 @@
       "bb_upper": 161.49,
       "bb_middle": 150.35,
       "bb_lower": 139.21,
-      "vol_trend": 1.25,
+      "vol_trend": 1.24,
       "atr": 3.4,
       "hist_vol": 24.4,
       "vol_class": "LOW",
@@ -4514,7 +4514,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.25x + ขึ้น",
+            "name": "Volume 1.24x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -4781,7 +4781,7 @@
       "bb_upper": 54.39,
       "bb_middle": 50.95,
       "bb_lower": 47.51,
-      "vol_trend": 1.12,
+      "vol_trend": 1.11,
       "atr": 1.84,
       "hist_vol": 33.9,
       "vol_class": "MEDIUM",
@@ -4834,7 +4834,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.12x + ขึ้น",
+            "name": "Volume 1.11x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -4944,7 +4944,7 @@
       "bb_upper": 157.29,
       "bb_middle": 149.22,
       "bb_lower": 141.16,
-      "vol_trend": 1.99,
+      "vol_trend": 1.85,
       "atr": 2.58,
       "hist_vol": 18.7,
       "vol_class": "LOW",
@@ -4997,7 +4997,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.99x + ขึ้น (Buying pressure)",
+            "name": "Volume 1.85x + ขึ้น (Buying pressure)",
             "score": 8,
             "weight": 10
           },
@@ -5291,7 +5291,7 @@
       "bb_upper": 30.92,
       "bb_middle": 29.64,
       "bb_lower": 28.36,
-      "vol_trend": 0.52,
+      "vol_trend": 0.51,
       "atr": 0.87,
       "hist_vol": 31.1,
       "vol_class": "MEDIUM",
@@ -5344,7 +5344,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.52x (weak conviction)",
+            "name": "Volume 0.51x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -5644,7 +5644,7 @@
       "bb_upper": 128.17,
       "bb_middle": 125.3,
       "bb_lower": 122.43,
-      "vol_trend": 0.67,
+      "vol_trend": 0.59,
       "atr": 1.59,
       "hist_vol": 13.1,
       "vol_class": "LOW",
@@ -5697,7 +5697,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.67x (weak conviction)",
+            "name": "Volume 0.59x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -5840,7 +5840,7 @@
       "bb_upper": 77.68,
       "bb_middle": 71.44,
       "bb_lower": 65.2,
-      "vol_trend": 1.25,
+      "vol_trend": 1.24,
       "atr": 3.03,
       "hist_vol": 52.7,
       "vol_class": "HIGH",
@@ -5893,7 +5893,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.25x + ขึ้น",
+            "name": "Volume 1.24x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -6210,7 +6210,7 @@
       "bb_upper": 3.15,
       "bb_middle": 2.92,
       "bb_lower": 2.69,
-      "vol_trend": 1.33,
+      "vol_trend": 1.27,
       "atr": 0.08,
       "hist_vol": 28.7,
       "vol_class": "LOW",
@@ -6263,7 +6263,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.33x + ขึ้น",
+            "name": "Volume 1.27x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -6732,7 +6732,7 @@
       "bb_upper": 85.0,
       "bb_middle": 80.29,
       "bb_lower": 75.58,
-      "vol_trend": 0.96,
+      "vol_trend": 0.93,
       "atr": 2.15,
       "hist_vol": 28.7,
       "vol_class": "LOW",
@@ -6785,7 +6785,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.96x (weak conviction)",
+            "name": "Volume 0.93x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -6928,7 +6928,7 @@
       "bb_upper": 17.42,
       "bb_middle": 16.41,
       "bb_lower": 15.4,
-      "vol_trend": 2.42,
+      "vol_trend": 2.39,
       "atr": 0.42,
       "hist_vol": 28.4,
       "vol_class": "LOW",
@@ -6981,7 +6981,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 2.42x + ขึ้น (Buying pressure)",
+            "name": "Volume 2.39x + ขึ้น (Buying pressure)",
             "score": 8,
             "weight": 10
           },
@@ -7085,7 +7085,7 @@
       "bb_upper": 3.26,
       "bb_middle": 3.11,
       "bb_lower": 2.95,
-      "vol_trend": 0.7,
+      "vol_trend": 0.69,
       "atr": 0.09,
       "hist_vol": 37.1,
       "vol_class": "MEDIUM",
@@ -7138,7 +7138,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.7x (weak conviction)",
+            "name": "Volume 0.69x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -7433,7 +7433,7 @@
       "bb_upper": 18.75,
       "bb_middle": 17.73,
       "bb_lower": 16.7,
-      "vol_trend": 0.83,
+      "vol_trend": 0.82,
       "atr": 0.43,
       "hist_vol": 24.8,
       "vol_class": "LOW",
@@ -7486,7 +7486,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.83x (weak conviction)",
+            "name": "Volume 0.82x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -7618,7 +7618,7 @@
       "bb_upper": 5.38,
       "bb_middle": 5.08,
       "bb_lower": 4.77,
-      "vol_trend": 0.51,
+      "vol_trend": 0.48,
       "atr": 0.12,
       "hist_vol": 33.0,
       "vol_class": "MEDIUM",
@@ -7671,7 +7671,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.51x (weak conviction)",
+            "name": "Volume 0.48x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -7792,7 +7792,7 @@
       "bb_upper": 3.78,
       "bb_middle": 3.6,
       "bb_lower": 3.43,
-      "vol_trend": 1.5,
+      "vol_trend": 1.47,
       "atr": 0.1,
       "hist_vol": 32.5,
       "vol_class": "MEDIUM",
@@ -7845,7 +7845,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.5x + ขึ้น",
+            "name": "Volume 1.47x + ขึ้น",
             "score": 4,
             "weight": 10
           },
@@ -8140,7 +8140,7 @@
       "bb_upper": 1.19,
       "bb_middle": 1.0,
       "bb_lower": 0.82,
-      "vol_trend": 1.21,
+      "vol_trend": 1.2,
       "atr": 0.07,
       "hist_vol": 62.2,
       "vol_class": "HIGH",
@@ -8193,7 +8193,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 1.21x + ลง",
+            "name": "Volume 1.2x + ลง",
             "score": -4,
             "weight": 10
           },
@@ -8221,17 +8221,6 @@
             "is_primary": true
           },
           {
-            "level_name": "Fib 38.2%",
-            "level": 1.11,
-            "distance": 0.02,
-            "distance_pct": 1.77,
-            "probability": 26,
-            "type": "breakdown",
-            "label": "⬇️ หลุด Fib 38.2%",
-            "side": "PUT",
-            "is_primary": false
-          },
-          {
             "level_name": "Fib 0% (High)",
             "level": 1.24,
             "distance": 0.11,
@@ -8243,11 +8232,22 @@
             "is_primary": true
           },
           {
+            "level_name": "Fib 38.2%",
+            "level": 1.11,
+            "distance": 0.02,
+            "distance_pct": 1.77,
+            "probability": 21,
+            "type": "breakdown",
+            "label": "⬇️ หลุด Fib 38.2%",
+            "side": "PUT",
+            "is_primary": false
+          },
+          {
             "level_name": "Fib 50.0%",
             "level": 1.08,
             "distance": 0.05,
             "distance_pct": 4.42,
-            "probability": 8,
+            "probability": 5,
             "type": "breakdown",
             "label": "⬇️ หลุด Fib 50.0%",
             "side": "PUT",
@@ -8268,14 +8268,14 @@
       },
       "radar": {
         "momentum": 59,
-        "volume": 70,
+        "volume": 55,
         "trend": 50,
         "setup": 78,
         "sync": 85,
-        "total": 66,
+        "total": 63,
         "direction": "UP"
       },
-      "success_prob": 68
+      "success_prob": 66
     },
     {
       "sym": "SAWAD",
@@ -8645,7 +8645,7 @@
       "bb_upper": 2.03,
       "bb_middle": 1.94,
       "bb_lower": 1.84,
-      "vol_trend": 0.69,
+      "vol_trend": 0.67,
       "atr": 0.04,
       "hist_vol": 22.4,
       "vol_class": "LOW",
@@ -8698,7 +8698,7 @@
             "weight": 15
           },
           {
-            "name": "Volume 0.69x (weak conviction)",
+            "name": "Volume 0.67x (weak conviction)",
             "score": 0,
             "weight": 10
           },
@@ -9210,7 +9210,7 @@
     {
       "sector": "Energy",
       "count": 7,
-      "avg_rsi": 60.3,
+      "avg_rsi": 60.6,
       "avg_pct": 1.03,
       "buy": 5,
       "sell": 2,
@@ -9429,29 +9429,6 @@
         "upside_pct": 0.22
       },
       {
-        "sym": "KKP",
-        "price": 117.0,
-        "pct": 2.18,
-        "rsi": 58.3,
-        "sector": "Bank",
-        "target": 119.0,
-        "support": 116.52,
-        "stop_loss": 114.99,
-        "direction_label": "STRONG_BUY",
-        "confidence": 100,
-        "radar": {
-          "momentum": 75,
-          "volume": 70,
-          "trend": 50,
-          "setup": 58,
-          "sync": 85,
-          "total": 67,
-          "direction": "UP"
-        },
-        "success_prob": 80,
-        "upside_pct": 1.71
-      },
-      {
         "sym": "COM7",
         "price": 33.5,
         "pct": 0.0,
@@ -9496,6 +9473,29 @@
         },
         "success_prob": 78,
         "upside_pct": 1.96
+      },
+      {
+        "sym": "KKP",
+        "price": 117.0,
+        "pct": 2.18,
+        "rsi": 58.3,
+        "sector": "Bank",
+        "target": 119.0,
+        "support": 116.52,
+        "stop_loss": 114.99,
+        "direction_label": "STRONG_BUY",
+        "confidence": 100,
+        "radar": {
+          "momentum": 75,
+          "volume": 55,
+          "trend": 50,
+          "setup": 58,
+          "sync": 85,
+          "total": 64,
+          "direction": "UP"
+        },
+        "success_prob": 78,
+        "upside_pct": 1.71
       },
       {
         "sym": "OSP",
@@ -9576,7 +9576,7 @@
     "buy": 25,
     "sell": 14,
     "hold": 11,
-    "avg_confidence": 58.4,
+    "avg_confidence": 58.6,
     "avg_rsi": 51.7
   }
 }
