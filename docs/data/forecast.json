@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-11-12T00:31:01.831474+07:00",
-  "updated_display": "12/11/2026 00:31:01",
+  "updated_at": "2026-11-12T00:57:56.270264+07:00",
+  "updated_display": "12/11/2026 00:57:56",
   "set50_index": {
     "sym": "SET50",
     "sector": "INDEX",
     "source": "synthetic",
-    "price": 1009.81,
-    "prev": 994.79,
-    "pct": 1.51,
-    "rsi": 50.4,
+    "price": 1009.94,
+    "prev": 994.8,
+    "pct": 1.52,
+    "rsi": 50.9,
     "macd": null,
     "macd_sig": null,
-    "macd_hist": -0.235,
+    "macd_hist": -0.222,
     "ma50": null,
     "ma200": null,
     "bb_upper": null,
@@ -43,15 +43,15 @@
       "target": 1014.75,
       "support": 1003.71,
       "stop_loss": 994.79,
-      "risk": 15.02,
-      "reward": 4.94,
-      "rr_ratio": 0.33,
+      "risk": 15.15,
+      "reward": 4.81,
+      "rr_ratio": 0.32,
       "dw_type": "WAIT",
       "dw_emoji": "⏸️",
       "dw_grade": "-",
       "factors": [
         {
-          "name": "RSI 50.4 Neutral",
+          "name": "RSI 50.9 Neutral",
           "score": 0,
           "weight": 15
         },
@@ -66,7 +66,7 @@
           "weight": 15
         },
         {
-          "name": "+1.51% Positive",
+          "name": "+1.52% Positive",
           "score": 4,
           "weight": 10
         }
@@ -75,9 +75,9 @@
         {
           "level_name": "Fib 0% (High)",
           "level": 1032.59,
-          "distance": 22.78,
-          "distance_pct": 2.26,
-          "probability": 55,
+          "distance": 22.65,
+          "distance_pct": 2.24,
+          "probability": 56,
           "type": "rejection",
           "label": "🚫 ชน Fib 0% (High) เด้งลง",
           "side": "PUT",
@@ -86,8 +86,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 4.94,
-          "distance_pct": 0.49,
+          "distance": 4.81,
+          "distance_pct": 0.48,
           "probability": 54,
           "type": "rejection",
           "label": "🚫 ชน Fib 23.6% เด้งลง",
@@ -97,8 +97,8 @@
         {
           "level_name": "Fib 38.2%",
           "level": 1003.71,
-          "distance": 6.1,
-          "distance_pct": 0.6,
+          "distance": 6.23,
+          "distance_pct": 0.62,
           "probability": 48,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 38.2%",
@@ -108,8 +108,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 4.94,
-          "distance_pct": 0.49,
+          "distance": 4.81,
+          "distance_pct": 0.48,
           "probability": 46,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib 23.6%",
@@ -119,8 +119,8 @@
         {
           "level_name": "Fib 50.0%",
           "level": 994.79,
-          "distance": 15.02,
-          "distance_pct": 1.49,
+          "distance": 15.15,
+          "distance_pct": 1.5,
           "probability": 36,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 50.0%",
@@ -130,8 +130,8 @@
         {
           "level_name": "Fib 0% (High)",
           "level": 1032.59,
-          "distance": 22.78,
-          "distance_pct": 2.26,
+          "distance": 22.65,
+          "distance_pct": 2.24,
           "probability": 26,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib 0% (High)",
@@ -141,9 +141,9 @@
         {
           "level_name": "Fib 61.8%",
           "level": 985.88,
-          "distance": 23.93,
-          "distance_pct": 2.37,
-          "probability": 22,
+          "distance": 24.06,
+          "distance_pct": 2.38,
+          "probability": 21,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 61.8%",
           "side": "PUT",
@@ -152,8 +152,8 @@
         {
           "level_name": "Fib EXT 123.6%",
           "level": 1050.43,
-          "distance": 40.62,
-          "distance_pct": 4.02,
+          "distance": 40.49,
+          "distance_pct": 4.01,
           "probability": 11,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib EXT 123.6%",
@@ -163,8 +163,8 @@
         {
           "level_name": "Fib EXT 161.8%",
           "level": 1079.3,
-          "distance": 69.49,
-          "distance_pct": 6.88,
+          "distance": 69.36,
+          "distance_pct": 6.87,
           "probability": 5,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib EXT 161.8%",
@@ -178,13 +178,13 @@
     "sym": "S50_FUTURES",
     "sector": "FUTURES",
     "source": "synthetic_from_spot",
-    "price": 1009.27,
-    "prev": 994.79,
-    "pct": 1.51,
-    "rsi": 50.4,
+    "price": 1009.4,
+    "prev": 994.8,
+    "pct": 1.52,
+    "rsi": 50.9,
     "macd": null,
     "macd_sig": null,
-    "macd_hist": -0.235,
+    "macd_hist": -0.222,
     "ma50": null,
     "ma200": null,
     "bb_upper": null,
@@ -216,15 +216,15 @@
       "target": 1014.75,
       "support": 1003.71,
       "stop_loss": 994.79,
-      "risk": 14.48,
-      "reward": 5.48,
-      "rr_ratio": 0.38,
+      "risk": 14.61,
+      "reward": 5.35,
+      "rr_ratio": 0.37,
       "dw_type": "WAIT",
       "dw_emoji": "⏸️",
       "dw_grade": "-",
       "factors": [
         {
-          "name": "RSI 50.4 Neutral",
+          "name": "RSI 50.9 Neutral",
           "score": 0,
           "weight": 15
         },
@@ -239,7 +239,7 @@
           "weight": 15
         },
         {
-          "name": "+1.51% Positive",
+          "name": "+1.52% Positive",
           "score": 4,
           "weight": 10
         }
@@ -248,8 +248,8 @@
         {
           "level_name": "Fib 0% (High)",
           "level": 1032.59,
-          "distance": 23.32,
-          "distance_pct": 2.31,
+          "distance": 23.19,
+          "distance_pct": 2.3,
           "probability": 55,
           "type": "rejection",
           "label": "🚫 ชน Fib 0% (High) เด้งลง",
@@ -259,8 +259,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 5.48,
-          "distance_pct": 0.54,
+          "distance": 5.35,
+          "distance_pct": 0.53,
           "probability": 54,
           "type": "rejection",
           "label": "🚫 ชน Fib 23.6% เด้งลง",
@@ -270,8 +270,8 @@
         {
           "level_name": "Fib 38.2%",
           "level": 1003.71,
-          "distance": 5.56,
-          "distance_pct": 0.55,
+          "distance": 5.69,
+          "distance_pct": 0.56,
           "probability": 48,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 38.2%",
@@ -281,8 +281,8 @@
         {
           "level_name": "Fib 23.6%",
           "level": 1014.75,
-          "distance": 5.48,
-          "distance_pct": 0.54,
+          "distance": 5.35,
+          "distance_pct": 0.53,
           "probability": 46,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib 23.6%",
@@ -292,8 +292,8 @@
         {
           "level_name": "Fib 50.0%",
           "level": 994.79,
-          "distance": 14.48,
-          "distance_pct": 1.43,
+          "distance": 14.61,
+          "distance_pct": 1.45,
           "probability": 36,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 50.0%",
@@ -303,8 +303,8 @@
         {
           "level_name": "Fib 0% (High)",
           "level": 1032.59,
-          "distance": 23.32,
-          "distance_pct": 2.31,
+          "distance": 23.19,
+          "distance_pct": 2.3,
           "probability": 26,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib 0% (High)",
@@ -314,8 +314,8 @@
         {
           "level_name": "Fib 61.8%",
           "level": 985.88,
-          "distance": 23.39,
-          "distance_pct": 2.32,
+          "distance": 23.52,
+          "distance_pct": 2.33,
           "probability": 22,
           "type": "breakdown",
           "label": "⬇️ หลุด Fib 61.8%",
@@ -325,8 +325,8 @@
         {
           "level_name": "Fib EXT 123.6%",
           "level": 1050.43,
-          "distance": 41.16,
-          "distance_pct": 4.08,
+          "distance": 41.03,
+          "distance_pct": 4.06,
           "probability": 11,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib EXT 123.6%",
@@ -336,8 +336,8 @@
         {
           "level_name": "Fib EXT 161.8%",
           "level": 1079.3,
-          "distance": 70.03,
-          "distance_pct": 6.94,
+          "distance": 69.9,
+          "distance_pct": 6.92,
           "probability": 5,
           "type": "breakout_up",
           "label": "⬆️ ทะลุ Fib EXT 161.8%",
@@ -346,12 +346,12 @@
         }
       ]
     },
-    "spot_price": 1009.81,
+    "spot_price": 1009.94,
     "basis": -0.54,
     "basis_pct": -0.05,
     "structure": "BACKWARDATION",
     "days_to_exp": 13,
-    "fair_value": 1009.27,
+    "fair_value": 1009.4,
     "fv_deviation": 0
   },
   "stocks": [
@@ -2058,6 +2058,163 @@
         "direction": "UP"
       },
       "success_prob": 78
+    },
+    {
+      "sym": "CPALL",
+      "sector": "Retail",
+      "price": 47.25,
+      "prev": 46.25,
+      "pct": 2.16,
+      "rsi": 73.4,
+      "macd": 0.529,
+      "macd_sig": 0.119,
+      "macd_hist": 0.41,
+      "ma50": 44.48,
+      "ma200": null,
+      "bb_upper": 46.56,
+      "bb_middle": 44.24,
+      "bb_lower": 41.91,
+      "vol_trend": 0.7,
+      "atr": 0.94,
+      "hist_vol": 21.4,
+      "vol_class": "LOW",
+      "fibs": {
+        "0%": 47.25,
+        "23.6%": 45.89,
+        "38.2%": 45.05,
+        "50.0%": 44.38,
+        "61.8%": 43.7,
+        "78.6%": 42.73,
+        "100%": 41.5,
+        "EXT_1236": 48.61,
+        "EXT_1618": 50.8
+      },
+      "fib_pos": "ABOVE_236",
+      "high_30d": 47.25,
+      "low_30d": 41.5,
+      "prediction": {
+        "direction": "BUY",
+        "confidence": 76,
+        "score": 26,
+        "target": 48.61,
+        "support": 45.89,
+        "stop_loss": 45.05,
+        "risk": 2.2,
+        "reward": 1.36,
+        "rr_ratio": 0.62,
+        "dw_type": "CALL",
+        "dw_emoji": "🟢",
+        "dw_grade": "B",
+        "factors": [
+          {
+            "name": "RSI 73.4 Overbought",
+            "score": -8,
+            "weight": 15
+          },
+          {
+            "name": "MACD ▲▲ Strong Bull",
+            "score": 12,
+            "weight": 15
+          },
+          {
+            "name": "MACD เหนือ Signal Line ✓",
+            "score": 5,
+            "weight": 5
+          },
+          {
+            "name": "เหนือ Fib 23.6% (Strong Bull zone)",
+            "score": 12,
+            "weight": 15
+          },
+          {
+            "name": "Volume 0.7x (weak conviction)",
+            "score": 0,
+            "weight": 10
+          },
+          {
+            "name": "ติด BB Upper (Overbought - mean reversion)",
+            "score": -7,
+            "weight": 10
+          },
+          {
+            "name": "+2.16% Good gain",
+            "score": 7,
+            "weight": 10
+          },
+          {
+            "name": "Bullish Acceleration (RSI+MACD เร่ง)",
+            "score": 5,
+            "weight": 5
+          }
+        ],
+        "breakouts": [
+          {
+            "level_name": "Fib EXT 123.6%",
+            "level": 48.61,
+            "distance": 1.36,
+            "distance_pct": 2.88,
+            "probability": 52,
+            "type": "breakout_up",
+            "label": "⬆️ ทะลุ Fib EXT 123.6%",
+            "side": "CALL",
+            "is_primary": true
+          },
+          {
+            "level_name": "Fib EXT 161.8%",
+            "level": 50.8,
+            "distance": 3.55,
+            "distance_pct": 7.51,
+            "probability": 26,
+            "type": "breakout_up",
+            "label": "⬆️ ทะลุ Fib EXT 161.8%",
+            "side": "CALL",
+            "is_primary": true
+          },
+          {
+            "level_name": "Fib 23.6%",
+            "level": 45.89,
+            "distance": 1.36,
+            "distance_pct": 2.88,
+            "probability": 5,
+            "type": "breakdown",
+            "label": "⬇️ หลุด Fib 23.6%",
+            "side": "PUT",
+            "is_primary": false
+          },
+          {
+            "level_name": "Fib 38.2%",
+            "level": 45.05,
+            "distance": 2.2,
+            "distance_pct": 4.66,
+            "probability": 5,
+            "type": "breakdown",
+            "label": "⬇️ หลุด Fib 38.2%",
+            "side": "PUT",
+            "is_primary": false
+          },
+          {
+            "level_name": "Fib 50.0%",
+            "level": 44.38,
+            "distance": 2.87,
+            "distance_pct": 6.07,
+            "probability": 5,
+            "type": "breakdown",
+            "label": "⬇️ หลุด Fib 50.0%",
+            "side": "PUT",
+            "is_primary": false
+          }
+        ]
+      },
+      "radar": {
+        "momentum": 92,
+        "volume": 25,
+        "trend": 50,
+        "setup": 58,
+        "sync": 70,
+        "total": 61,
+        "direction": "UP"
+      },
+      "success_prob": 67
     },
     {
       "sym": "CRC",
@@ -8791,20 +8948,20 @@
   ],
   "sectors": [
     {
+      "sector": "Retail",
+      "count": 3,
+      "avg_rsi": 65.6,
+      "avg_pct": 2.16,
+      "buy": 2,
+      "sell": 1,
+      "hold": 0
+    },
+    {
       "sector": "Food",
       "count": 5,
       "avg_rsi": 62.9,
       "avg_pct": 1.8,
       "buy": 4,
-      "sell": 1,
-      "hold": 0
-    },
-    {
-      "sector": "Retail",
-      "count": 2,
-      "avg_rsi": 61.7,
-      "avg_pct": 2.16,
-      "buy": 1,
       "sell": 1,
       "hold": 0
     },
@@ -9160,15 +9317,15 @@
       }
     ],
     "down": [],
-    "total_up": 13,
+    "total_up": 14,
     "total_down": 0
   },
   "summary": {
-    "total": 49,
-    "buy": 23,
+    "total": 50,
+    "buy": 24,
     "sell": 19,
     "hold": 7,
-    "avg_confidence": 53.2,
-    "avg_rsi": 50.4
+    "avg_confidence": 53.7,
+    "avg_rsi": 50.9
   }
 }
